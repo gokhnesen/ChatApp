@@ -1,4 +1,5 @@
 using DateApp.API.Extensions;
+using DateApp.API.Middleware;
 using DateApp.Data.Interfaces;
 using DateApp.Data.Services;
 using DateApp.Entity.DataContext;
@@ -48,13 +49,11 @@ namespace DateApp.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
+           
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DateApp.API v1"));
-            }
 
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseHttpsRedirection();
 
             app.UseRouting();
