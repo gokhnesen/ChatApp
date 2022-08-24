@@ -1,4 +1,7 @@
 ﻿
+using DateApp.API.Helpers;
+using DateApp.Data.Abstract;
+using DateApp.Data.Concrete;
 using DateApp.Data.Interfaces;
 using DateApp.Data.Services;
 using DateApp.Entity.DataContext;
@@ -18,6 +21,8 @@ namespace DateApp.API.Extensions
 
         {
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContextModel>(options =>
             {
                 options.UseSqlServer(config.GetConnectionString("DateAppDb"));

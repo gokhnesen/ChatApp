@@ -9,6 +9,12 @@
     }
   },
   "profiles": {
+    "Watch": {
+      "commandName": "Executable",
+      "executablePath": "dotnet.exe",
+      "workingDirectory": "$(ProjectDir)",
+      "commandLineArgs": "watch run"
+    },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
