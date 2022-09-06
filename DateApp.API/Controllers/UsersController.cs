@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DateApp.API.Extensions;
 using DateApp.Data.Abstract;
+using DateApp.Data.Concrete;
 using DateApp.Data.DTOs;
 using DateApp.Data.Interfaces;
 using DateApp.Entity.DataContext;
@@ -92,11 +93,31 @@ namespace DateApp.API.Controllers
             var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
             if (photo.IsMain) return BadRequest("Aynı fotoğraf ile değiştirilemez");
             var currentMain = user.Photos.FirstOrDefault(x => x.IsMain);
-            if (currentMain != null) currentMain.IsMain = true;
+            if (currentMain != null) currentMain.IsMain = false;
             photo.IsMain = true;
 
             if (await _userRepository.SaveAllAsync()) return NoContent();
             return BadRequest("Profil fotoğrafı değişimi başarısız");
         }
+      
+        [HttpDelete("delete-photo/{photoId}")]
+        public async Task<ActionResult> DeletePhoto(int photoId)
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
+            if (photo == null) return NotFound();
+            if (photo.IsMain) return BadRequest("Profil Fotoğrafını silemezsin");
+            if (photo.PublicId != null)
+            {
+               var result= await _photoService.DeletePhotoAsync(photo.PublicId);
+                if (result.Error != null) return BadRequest(result.Error.Message);
+            }
+            user.Photos.Remove(photo);
+
+            if (await _userRepository.SaveAllAsync()) return Ok();
+            return BadRequest("Fotoğraf silme başarısız");
+        }
     }
+
+
 }
