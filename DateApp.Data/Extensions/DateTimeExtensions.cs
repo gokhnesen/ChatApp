@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DateApp.Entity.Extensions
+namespace DateApp.Data.Extensions
 {
     public static class DateTimeExtensions
     {

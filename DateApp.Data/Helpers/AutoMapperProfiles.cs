@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DateApp.Data.DTOs;
+using DateApp.Data.Extensions;
 using DateApp.Entity.Entities;
-using DateApp.Entity.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

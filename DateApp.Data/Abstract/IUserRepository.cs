@@ -1,4 +1,5 @@
 ﻿using DateApp.Data.DTOs;
+using DateApp.Data.Helpers;
 using DateApp.Entity.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace DateApp.Data.Abstract
         Task<AppUser> GetUserByIdAsync(int id);
         Task<AppUser> GetUserByUsernameAsync(string username);
 
-        Task<IEnumerable<MemberDto>> GetMembersAsync();
+        Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams);
         Task<MemberDto> GetMemberAsync(string username);
     }
 }

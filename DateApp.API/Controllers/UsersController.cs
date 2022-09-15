@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
-using DateApp.API.Extensions;
 using DateApp.Data.Abstract;
 using DateApp.Data.Concrete;
 using DateApp.Data.DTOs;
+using DateApp.Data.Extensions;
+using DateApp.Data.Helpers;
 using DateApp.Data.Interfaces;
 using DateApp.Entity.DataContext;
 using DateApp.Entity.Entities;
@@ -33,9 +34,14 @@ namespace DateApp.API.Controllers
         }
 
         [HttpGet]
-        public async Task< ActionResult<IEnumerable<MemberDto>>> GetUsers()
+        public async Task< ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery]UserParams userParams)
         {
-            var users = await _userRepository.GetMembersAsync();
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            userParams.CurrentUsername = User.GetUsername();
+            if (string.IsNullOrEmpty(userParams.Gender))
+                userParams.Gender = user.Gender == "male" ? "female" : "male";
+            var users = await _userRepository.GetMembersAsync(userParams);
+            Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
             return Ok(users);
         }
         //api/users/3

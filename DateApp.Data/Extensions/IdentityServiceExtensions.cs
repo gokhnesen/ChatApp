@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DateApp.API.Extensions
+namespace DateApp.Data.Extensions
 {
     public  static class IdentityServiceExtensions
     {
