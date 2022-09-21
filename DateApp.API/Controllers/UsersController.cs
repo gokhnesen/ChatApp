@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DateApp.Data.Abstract;
 using DateApp.Data.Concrete;
 using DateApp.Data.DTOs;
 using DateApp.Data.Extensions;

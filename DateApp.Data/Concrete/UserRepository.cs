@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using DateApp.Data.Abstract;
 using DateApp.Data.DTOs;
 using DateApp.Data.Helpers;
+using DateApp.Data.Interfaces;
 using DateApp.Entity.DataContext;
 using DateApp.Entity.Entities;
 using Microsoft.EntityFrameworkCore;

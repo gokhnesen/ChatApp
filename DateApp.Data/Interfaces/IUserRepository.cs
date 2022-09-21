@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DateApp.Data.Abstract
+namespace DateApp.Data.Interfaces
 {
     public interface IUserRepository
     {

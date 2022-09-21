@@ -1,5 +1,5 @@
-﻿using DateApp.Data.Abstract;
-using DateApp.Data.Extensions;
+﻿using DateApp.Data.Extensions;
+using DateApp.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using System;
