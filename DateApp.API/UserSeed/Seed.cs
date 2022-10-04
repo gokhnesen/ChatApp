@@ -1,5 +1,6 @@
 ﻿using DateApp.Entity.DataContext;
 using DateApp.Entity.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,22 +14,19 @@ namespace DateApp.API.UserSeed
 {
     public class Seed
     {
-        public static async Task SeedUsers(DataContextModel context)
+        public static async Task SeedUsers(UserManager<AppUser> userManager)
         {
-            if (await context.Users.AnyAsync()) return;
+            if (await userManager.Users.AnyAsync()) return;
 
             var userData = await System.IO.File.ReadAllTextAsync("UserSeed/UserSeedData.json");
             var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
            foreach(var user in users)
             {
-                using var hmac = new HMACSHA512();
                 user.UserName = user.UserName.ToLower();
-                user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd"));
-
-                 context.Users.Add(user);
+                await userManager.CreateAsync(user, "Dursukok34.");
             }
 
-            await context.SaveChangesAsync();
+            
         }
     }
 }

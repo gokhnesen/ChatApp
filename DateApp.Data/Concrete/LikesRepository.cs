@@ -16,6 +16,7 @@ namespace DateApp.Data.Concrete
     public class LikesRepository : ILikesRepository
     {
         private readonly DataContextModel _context;
+       
 
         public LikesRepository(DataContextModel context)
         {

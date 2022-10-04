@@ -1,6 +1,8 @@
 using DateApp.API.UserSeed;
 using DateApp.Entity.DataContext;
+using DateApp.Entity.Entities;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,8 +25,9 @@ namespace DateApp.API
             try
             {
                 var context = services.GetRequiredService<DataContextModel>();
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
                 await context.Database.MigrateAsync();
-                await Seed.SeedUsers(context);
+                await Seed.SeedUsers(userManager);
             }
             catch(Exception ex)
             {
