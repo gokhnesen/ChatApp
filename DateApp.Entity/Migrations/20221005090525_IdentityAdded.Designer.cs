@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DateApp.Entity.Migrations
 {
     [DbContext(typeof(DataContextModel))]
-    [Migration("20221004110517_IdentityAdded")]
+    [Migration("20221005090525_IdentityAdded")]
     partial class IdentityAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
