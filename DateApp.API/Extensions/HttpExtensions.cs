@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace DateApp.Data.Extensions
+namespace DateApp.API.Extensions
 {
     public static class HttpExtensions
     {

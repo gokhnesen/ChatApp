@@ -16,11 +16,11 @@ namespace DateApp.Data.Helpers
 
             var username = resultContext.HttpContext.User.GetUsername();
             if (username == null) return;
-            var repo = resultContext.HttpContext.RequestServices.GetService<IUserRepository>();
-            if (repo == null) return;
-            var user = await repo.GetUserByUsernameAsync(username);
-            user.LastActive = DateTime.Now;
-            await repo.SaveAllAsync();
+            var uow = resultContext.HttpContext.RequestServices.GetService<IUnitOfWork>();
+            if (uow == null) return;
+            var user = await uow.UserRepository.GetUserByUsernameAsync(username);
+            user.LastActive = DateTime.UtcNow;
+            await uow.Complete();
         }
     }
 }

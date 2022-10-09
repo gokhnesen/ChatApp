@@ -1,5 +1,6 @@
+using DateApp.API.Extensions;
 using DateApp.API.Middleware;
-using DateApp.Data.Extensions;
+using DateApp.API.SignalR;
 using DateApp.Data.Interfaces;
 using DateApp.Data.Services;
 using DateApp.Entity.DataContext;
@@ -43,6 +44,7 @@ namespace DateApp.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DateApp.API", Version = "v1" });
             });
             services.AddCors();
+            services.AddSignalR();
 
         }
 
@@ -57,13 +59,19 @@ namespace DateApp.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.UseCors(x=>x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+            app.UseCors(x=>x.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials()
+            .WithOrigins("https://localhost:4200"));
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<PresenceHub>("hubs/presence");
+                endpoints.MapHub<PresenceHub>("hubs/message");
+
             });
         }
     }
